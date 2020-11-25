@@ -2,13 +2,14 @@
   <van-form @submit="onSubmit">
     <van-field
       v-model="userid"
-      name="用户名"
-      label="用户名"
-      placeholder="用户名"
-      :rules="[{ required: true, message: '请填写用户名' }]"
+      name="用户ID"
+      label="用户ID"
+      placeholder="用户ID"
+      :rules="[{ required: true, message: '请填写用户ID' }]"
     />
     <van-field
       v-model="password"
+      autocomplete="on"
       type="password"
       name="密码"
       label="密码"
@@ -32,7 +33,6 @@
   </van-form>
 </template>
 <script>
-import axios from "axios";
 export default {
   data: function () {
     return {
@@ -40,17 +40,31 @@ export default {
       password: "",
     };
   },
-  props: {
-    currentComponent: String,
-  },
   methods: {
     onSubmit: function () {
       void (async () => {
-        const res = await axios.post("http://localhost:3000/login", {
-          userid: this.userid,
-          password: this.password,
-        });
-        console.log(res);
+        try {
+          const { data } = await this.axios.post(
+            "http://localhost:3000/login",
+            {
+              userid: this.userid,
+              password: this.password,
+            }
+          );
+          sessionStorage["vue-app-token"] = data.token;
+          this.$dialog.alert({
+            title: "提示",
+            message: "登录成功",
+            theme: "round-button",
+          });
+          this.$router.push("/");
+        } catch (err) {
+          this.$dialog.alert({
+            title: "提示",
+            message: err.response.data.message,
+            theme: "round-button",
+          });
+        }
       })();
     },
   },

@@ -1,11 +1,4 @@
 <template>
-  <!-- <van-card
-      v-for="item in tweets.list"
-      :key="item.id"
-      :desc="item.content.text"
-      title="商品标题"
-      :thumb="item.content.images[0]"
-    /> -->
   <div>
     <div class="card" v-for="item in tweets.list" :key="item.id">
       <div class="avatar">
@@ -38,27 +31,22 @@
 
 <script>
 export default {
-  props: ["storeId"],
   data: function () {
     return {
       tweets: { list: [] },
     };
   },
-  watch: {
-    storeId: function () {
-      // 准备妥当时调用
-      this.getUserTweets(this.storeId);
-    },
-  },
+  watch: {},
   created: function () {
-    this.getUserTweets = async (id) => {
+    (async (id) => {
       try {
-        const { data } = await this.axios.get(`/tweets/users/${id}`);
+        const res = await this.axios.get("/login");
+        const { data } = await this.axios.get(`/tweets/users/${res.data._id}`);
         this.tweets = data;
       } catch (err) {
         console.log(err);
       }
-    };
+    })();
   },
 };
 </script>

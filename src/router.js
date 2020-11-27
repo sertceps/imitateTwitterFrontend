@@ -4,13 +4,39 @@ import Home from './views/Home.vue'
 // 懒加载？
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
+import Content from './components/Content.vue'
+import Search from './components/Search.vue'
+import Notifications from './components/Notifications.vue'
+import Messages from './components/Messages.vue'
 
 Vue.use(Router)
 
 
 const router = new Router({
     routes: [
-        { path: '/', component: Home },
+        {
+            path: '/',
+            redirect: '/home',
+            component: Home,
+            children: [
+                {
+                    path: '/home',
+                    component: Content,
+                },
+                {
+                    path: '/search',
+                    component: Search
+                },
+                {
+                    path: '/notifications',
+                    component: Notifications
+                },
+                {
+                    path: '/messages',
+                    component: Messages
+                }
+            ]
+        },
         { path: '/login', component: Login },
         { path: '/register', component: Register },
     ]

@@ -36,21 +36,18 @@
 export default {
   data: function () {
     return {
-      userid: "",
-      password: "",
+      userid: null,
+      password: null,
     };
   },
   methods: {
     onSubmit: function () {
       void (async () => {
         try {
-          const { data } = await this.axios.post(
-            "http://localhost:3000/login",
-            {
-              userid: this.userid,
-              password: this.password,
-            }
-          );
+          const { data } = await this.axios.post("/login", {
+            userid: this.userid,
+            password: this.password,
+          });
           sessionStorage["vue-app-token"] = data.token;
           this.$dialog.alert({
             title: "提示",

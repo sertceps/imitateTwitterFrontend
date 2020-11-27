@@ -30,7 +30,17 @@ module.exports = {
                 test: /\.vue$/,
                 use: 'vue-loader'
             },
-        ]
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }]
+            },
+        ],
     },
     plugins: [
         new VueLoaderPlugin(),
@@ -39,7 +49,7 @@ module.exports = {
         })
     ],
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),
+        contentBase: path.resolve(__dirname, ''),
         compress: false,
         port: 9000,
         hot: true

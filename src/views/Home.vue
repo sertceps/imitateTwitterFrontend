@@ -1,9 +1,8 @@
 <template>
   <!-- https://vant-contrib.gitee.io/vant/#/zh-CN/changelog -->
   <div>
-    <!-- fixed top -->
-    <fixed-top :detailInfo="detailInfo"></fixed-top>
-    <!-- scrollable content -->
+    <fixed-top></fixed-top>
+    <!-- children components -->
     <router-view></router-view>
     <!-- fixed bottom-->
     <div>
@@ -39,6 +38,7 @@ export default {
     return {
       detailInfo: null,
       active: "home",
+      show: false,
     };
   },
   created: function () {

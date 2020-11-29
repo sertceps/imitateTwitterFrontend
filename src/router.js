@@ -8,6 +8,8 @@ import Content from './components/Content.vue'
 import Search from './components/Search.vue'
 import Notifications from './components/Notifications.vue'
 import Messages from './components/Messages.vue'
+import User from './views/User.vue'
+import TweetsRender from './components/TweetsRender.vue'
 
 Vue.use(Router)
 
@@ -34,11 +36,37 @@ const router = new Router({
                 {
                     path: '/messages',
                     component: Messages
-                }
+                },
             ]
         },
         { path: '/login', component: Login },
         { path: '/register', component: Register },
+        {
+            path: '/:username',
+            component: User,
+            children: [
+                {
+                    path: '/:username',
+                    component: TweetsRender
+                },
+                {
+                    path: '/:username/with_replies',
+                    component: TweetsRender
+
+                },
+                {
+                    path: '/:username/media',
+                    component: TweetsRender
+
+                },
+                {
+                    path: '/:username/likes',
+                    component: TweetsRender
+
+                },
+            ]
+
+        },
     ]
 })
 

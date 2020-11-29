@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <div class="place-holder"></div> -->
     <div class="card" v-for="item in tweets.list" :key="item.id">
       <div class="avatar">
         <van-image

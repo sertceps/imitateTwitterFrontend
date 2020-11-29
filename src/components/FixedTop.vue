@@ -50,7 +50,8 @@
         <a href="">14 正在关注 </a>
         <a href="">15 关注者</a>
       </div>
-      <van-cell title="个人资料" is-link size="large" />
+      <van-cell title="个人资料" is-link size="large" to="/user" />
+      <!-- user 应该是个参数 -->
       <van-cell title="设置" is-link size="large" />
       <van-cell title="退出" size="large" />
     </van-popup>

@@ -67,7 +67,7 @@ export default {
     onSubmit: function () {
       (async () => {
         try {
-          await this.axios.post("http://localhost:3000/users", {
+          await this.axios.post("/users", {
             userid: this.userid,
             username: this.username,
             password: this.password,

@@ -7,7 +7,8 @@
       @click-left="onClickLeft"
     />
     <info-exhibition></info-exhibition>
-    <tweets-render></tweets-render>
+    <!-- <content-render></content-render> -->
+    <router-view></router-view>
     <fixed-bottom></fixed-bottom>
   </div>
 </template>
@@ -16,11 +17,12 @@
 import FixedBottom from "../components/FixedBottom.vue";
 import InfoExhibition from "../components/InfoExhibition.vue";
 import TweetsRender from "../components/TweetsRender.vue";
+// import ContentRender from "../components/Content.vue";
 export default {
   components: {
     FixedBottom,
     InfoExhibition,
-    TweetsRender,
+    // ContentRender,
   },
   methods: {
     onClickLeft: function () {

@@ -9,13 +9,15 @@ import Search from './components/Search.vue'
 import Notifications from './components/Notifications.vue'
 import Messages from './components/Messages.vue'
 import User from './views/User.vue'
-import TweetsRender from './components/TweetsRender.vue'
+import TweetsRender from './components/Content.vue'
 
 Vue.use(Router)
 
 
 const router = new Router({
     routes: [
+        { path: '/login', component: Login },
+        { path: '/register', component: Register },
         {
             path: '/',
             redirect: '/home',
@@ -39,28 +41,27 @@ const router = new Router({
                 },
             ]
         },
-        { path: '/login', component: Login },
-        { path: '/register', component: Register },
         {
             path: '/:username',
             component: User,
             children: [
                 {
-                    path: '/:username',
+                    path: '/:userid',
                     component: TweetsRender
+                    // 这个组件拿到 username进行j查询
                 },
                 {
-                    path: '/:username/with_replies',
-                    component: TweetsRender
-
-                },
-                {
-                    path: '/:username/media',
+                    path: '/:userid/with_replies',
                     component: TweetsRender
 
                 },
                 {
-                    path: '/:username/likes',
+                    path: '/:userid/media',
+                    component: TweetsRender
+
+                },
+                {
+                    path: '/:userid/likes',
                     component: TweetsRender
 
                 },
@@ -74,7 +75,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     // 防止循环访问导致栈溢出,先判断要离开的路由是什么再跳转
     // 内部没有参数的next()是唯一出口
-    const token = sessionStorage.getItem('vue-app-token')
+    const token = localStorage.getItem('vue-app-token')
     if (to.path === '/login' || to.path === '/register') {
         if (token) { return next('/') }
         return next()

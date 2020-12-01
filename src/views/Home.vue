@@ -20,25 +20,11 @@ export default {
   },
   data: function () {
     return {
-      detailInfo: null,
       show: false,
     };
   },
-  created: function () {
-    this.getUerInfo();
-  },
-  methods: {
-    getUerInfo: function () {
-      (async () => {
-        try {
-          const { data } = await this.axios.get("/login");
-          this.detailInfo = data.detail_info;
-        } catch (err) {
-          console.log(err);
-        }
-      })();
-    },
-  },
+  created: function () {},
+  methods: {},
 };
 </script>
 

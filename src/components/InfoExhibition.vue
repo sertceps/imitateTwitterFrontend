@@ -17,18 +17,28 @@
       </div>
     </div>
     <div class="buttons">
-      <van-button plain type="default" to="/:username">推文</van-button>
-      <van-button plain type="default" to="/:username/with_replies"
-        >推文和回复</van-button
-      >
-      <van-button plain type="default" to="/:username/media">媒体</van-button>
-      <van-button plain type="default" to="/:username/likes">喜欢</van-button>
+      <van-button plain type="default" :to="tweets">推文</van-button>
+      <van-button plain type="default" :to="with_replay">推文和回复</van-button>
+      <van-button plain type="default" :to="media">媒体</van-button>
+      <van-button plain type="default" :to="likes">喜欢</van-button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  beforeCreated: function () {
+    this.$store.commit("initializeCertificate");
+  },
+  data: function () {
+    return {
+      tweets: "/userid",
+      media: "/userid/media",
+      with_replay: "/userid/with_replies",
+      likes: "/userid/likes",
+    };
+  },
+};
 </script>
 
 <style scoped>

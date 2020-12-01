@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <div class="place-holder"></div> -->
     <div class="card" v-for="item in tweets.list" :key="item.id">
       <div class="avatar">
         <van-image
@@ -39,9 +38,14 @@ export default {
   },
   watch: {},
   created: function () {
-    (async (id) => {
+    const userid = this.$route.params.userid;
+    if (!userid) {
+      console.log("is home page");
+    }
+    void (async (id) => {
       try {
-        const res = await this.axios.get("/login");
+        // const res = await this.axios.get("/users/" + this.$route.params.userid);
+        const res = await this.axios.get("/users/a");
         const { data } = await this.axios.get(`/tweets/users/${res.data._id}`);
         this.tweets = data;
       } catch (err) {

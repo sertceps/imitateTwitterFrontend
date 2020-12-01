@@ -48,7 +48,15 @@ export default {
             userid: this.userid,
             password: this.password,
           });
-          sessionStorage["vue-app-token"] = data.token;
+          // token 存入 localStorage
+          // user id 交由 Vuex
+          console.log(data);
+          localStorage["vue-app-token"] = data.token;
+          this.$store.commit("saveCertificate", {
+            id: data._id,
+            userid: data.userid,
+            avatar_url: data.detail_info.avatar_url,
+          });
           this.$dialog.alert({
             title: "提示",
             message: "登录成功",

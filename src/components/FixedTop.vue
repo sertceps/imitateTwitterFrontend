@@ -14,7 +14,7 @@
           lazy-load
           width="30"
           height="30"
-          :src="detail.avatar_url"
+          :src="avatar_url"
           @click="showPopup"
         />
       </template>
@@ -36,13 +36,7 @@
       />
 
       <div class="info-container">
-        <van-image
-          round
-          lazy-load
-          width="40"
-          height="40"
-          :src="detail.avatar_url"
-        />
+        <van-image round lazy-load width="40" height="40" :src="avatar_url" />
         <a class="user-link" href="">
           <span>张三</span>
           <span>@zhangsan</span>
@@ -53,32 +47,35 @@
       <van-cell title="个人资料" is-link size="large" to="/user" />
       <!-- user 应该是个参数 -->
       <van-cell title="设置" is-link size="large" />
-      <van-cell title="退出" size="large" />
+      <van-cell
+        title="退出"
+        size="large"
+        clickable
+        @click="onLogout"
+        to="/login"
+      />
     </van-popup>
   </header>
 </template>
 
 <script>
 export default {
-  props: ["detailInfo"],
+  beforeCreate: function () {
+    this.$store.commit("initializeCertificate");
+  },
   data: function () {
     return {
-      detail: {
-        avatar_url: "src/public/images/avatar.jpg",
-        background_url: "/images/backgrounds/default.jpg",
-        birthday: "2020-1-24T00:00:00.000Z",
-      },
+      avatar_url: this.$store.state.loginInfo.avatar_url,
       show: false,
     };
   },
-  watch: {
-    detailInfo: function () {
-      this.detail = this.detailInfo;
-    },
-  },
+  watch: {},
   methods: {
     showPopup: function () {
       this.show = true;
+    },
+    onLogout: function () {
+      localStorage.clear();
     },
   },
 };

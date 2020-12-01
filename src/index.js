@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Router from './router'
+import Store from './store'
 import Axios from 'axios'
 
 Axios.defaults.baseURL = 'http://localhost:3000'
 Axios.interceptors.request.use(config => {
-    config.headers["Authorization"] = ' Bearer ' + sessionStorage.getItem('vue-app-token');
+    config.headers["Authorization"] = ' Bearer ' + localStorage.getItem('vue-app-token');
     return config;
 })
 Vue.prototype.axios = Axios
@@ -14,7 +15,7 @@ import {
     NavBar, Tabbar, TabbarItem,
     Card, Form, Field, Button,
     Dialog, Image as VanImage,
-    Lazyload, Icon, Popup,Cell,CellGroup
+    Lazyload, Icon, Popup, Cell, CellGroup
 } from 'vant'
 
 Vue.use(NavBar)
@@ -52,6 +53,7 @@ import 'vant/lib/cell-group/style'
 
 new Vue({
     el: '#app',
+    store: Store,
     router: Router,
     render: c => c(App)
 })

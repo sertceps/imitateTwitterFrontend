@@ -3,17 +3,17 @@
     <van-image
       width="100%"
       height="120px"
-      src="/src/public/images/background.jpg"
+      :src="detailInfo.background_url"
       fit="cover"
     />
     <div class="text">
-      <van-image width="78" src="/src/public/images/avatar.jpg" round />
+      <van-image width="78" :src="detailInfo.avatar_url" round />
       <div class="info">
-        <span> 张三 </span>
-        <span> @zhangsan </span>
-        <span> Description </span>
-        <span> location birthday </span>
-        <span> following followers </span>
+        <span> {{ username }} </span>
+        <span> @{{ userid }} </span>
+        <span> {{ detailInfo.description }}</span>
+        <span> {{ detailInfo.location }}{{ detailInfo.birthday }}</span>
+        <span> {{ followingCount }} 正在关注 {{ followersCount }} 关注者 </span>
       </div>
     </div>
     <div class="buttons">
@@ -27,11 +27,30 @@
 
 <script>
 export default {
-  beforeCreated: function () {
+  beforeCreate: async function () {
     this.$store.commit("initializeCertificate");
+    const { data } = await this.axios.get(
+      "/users/" + this.$store.state.loginInfo.userid
+    );
+    this.detailInfo = { ...this.detailInfo, ...data.detail_info };
+    this.username = data.username;
+    this.followingCount = data.following_count;
+    this.followersCount = data.followers_count;
   },
   data: function () {
     return {
+      userid: this.$store.state.loginInfo.userid,
+      username: "username",
+      detailInfo: {
+        avatar_url: "/src/public/images/avatar.jpg",
+        background_url: "/src/public/images/background.jpg",
+        description: "",
+        location: "",
+        website: "",
+        birthday: "",
+      },
+      followingCount: 0,
+      followersCount: 0,
       tweets: "/userid",
       media: "/userid/media",
       with_replay: "/userid/with_replies",

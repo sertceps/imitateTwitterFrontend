@@ -10,7 +10,9 @@ import Notifications from './components/Notifications.vue'
 import Messages from './components/Messages.vue'
 import User from './views/User.vue'
 import TweetsRender from './components/Content.vue'
-
+import Compose from './views/Compose.vue'
+import TweetBoard from './components/TweetBoard.vue'
+import MessageBoard from './components/MessageBoard.vue'
 Vue.use(Router)
 
 
@@ -68,6 +70,20 @@ const router = new Router({
             ]
 
         },
+        {
+            path: '/compose/:item',
+            component: Compose,
+            children: [
+                {
+                    path: '/compose/tweet',
+                    component: TweetBoard
+                },
+                {
+                    path: '/compose/messages',
+                    component: MessageBoard
+                }
+            ]
+        }
     ]
 })
 

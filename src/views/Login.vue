@@ -50,7 +50,6 @@ export default {
           });
           // token 存入 localStorage
           // user id 交由 Vuex
-          console.log(data);
           localStorage["vue-app-token"] = data.token;
           this.$store.commit("saveCertificate", {
             id: data._id,

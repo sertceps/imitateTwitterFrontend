@@ -1,9 +1,17 @@
 <template>
-  <div>搜索组件</div>
+  <div>
+    <van-search v-model="value" placeholder="请输入搜索关键词" />
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: function () {
+    return {
+      value: "",
+    };
+  },
+};
 </script>
 
 <style>

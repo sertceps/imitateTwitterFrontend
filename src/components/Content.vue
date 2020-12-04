@@ -36,22 +36,43 @@ export default {
       tweets: { list: [] },
     };
   },
-  watch: {},
-  created: function () {
+  watch: {
+    $route(to, from) {
+      this.dynamicRender(to.path);
+    },
+  },
+  created: async function () {
     const userid = this.$route.params.userid;
     if (!userid) {
       console.log("is home page");
     }
-    void (async (id) => {
+    // const res = await this.axios.get("/users/" + this.$route.params.userid);
+    this.dynamicRender(this.$route.path);
+  },
+  methods: {
+    requestTweets: async function (url) {
       try {
-        // const res = await this.axios.get("/users/" + this.$route.params.userid);
-        const res = await this.axios.get("/users/a");
-        const { data } = await this.axios.get(`/tweets/users/${res.data._id}`);
+        const { data } = await this.axios.get(url);
         this.tweets = data;
       } catch (err) {
         console.log(err);
       }
-    })();
+    },
+    // 监听路由还是 按钮传参？
+    dynamicRender: async function (path) {
+      const res = await this.axios.get("/users/a");
+      let url = null;
+      if (path.match(/replies$/)) {
+        url = `/tweets/users/${res.data._id}`;
+      } else if (path.match(/media$/)) {
+        url = `/tweets/users/${res.data._id}`;
+      } else if (path.match(/likes$/)) {
+        url = "/liked";
+      } else {
+        url = `/tweets/users/${res.data._id}`;
+      }
+      await this.requestTweets(url);
+    },
   },
 };
 </script>

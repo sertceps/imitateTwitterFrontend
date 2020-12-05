@@ -13,6 +13,7 @@ import TweetsRender from './components/Content.vue'
 import Compose from './views/Compose.vue'
 import TweetBoard from './components/TweetBoard.vue'
 import MessageBoard from './components/MessageBoard.vue'
+import Status from './views/Status.vue'
 Vue.use(Router)
 
 
@@ -83,6 +84,11 @@ const router = new Router({
                     component: MessageBoard
                 }
             ]
+        },
+        {
+            path: '/status/:id',
+            component: Status
+
         }
     ]
 })

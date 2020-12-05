@@ -12,10 +12,9 @@ Axios.interceptors.request.use(config => {
 Vue.prototype.axios = Axios
 
 import {
-    NavBar, Tabbar, TabbarItem,
-    Card, Form, Field, Button,
-    Dialog, Image as VanImage,
-    Lazyload, Icon, Popup, Cell, CellGroup, Search, Notify
+    NavBar, Tabbar, TabbarItem, Card, Form, Field, Button, Dialog,
+    Image as VanImage, Lazyload, Icon, Popup, Cell, CellGroup, Search,
+    Notify, Divider
 } from 'vant'
 
 Vue.use(NavBar)
@@ -34,6 +33,7 @@ Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Search)
 Vue.use(Notify)
+Vue.use(Divider)
 
 import 'vant/lib/nav-bar/style'
 import 'vant/lib/tabbar/style'
@@ -50,6 +50,7 @@ import 'vant/lib/cell/style'
 import 'vant/lib/cell-group/style'
 import 'vant/lib/search/style'
 import 'vant/lib/notify/style'
+import 'vant/lib/divider/style'
 
 
 new Vue({

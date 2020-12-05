@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="card" v-for="item in tweets.list" :key="item.id">
+    <router-link
+      v-for="item in tweets.list"
+      :key="item._id"
+      :to="'/status/' + item._id"
+      tag="div"
+      class="card"
+    >
       <div class="avatar">
         <van-image
           round
@@ -25,7 +31,8 @@
           <van-icon name="share-o" size="20" />
         </div>
       </div>
-    </div>
+    </router-link>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -89,7 +96,7 @@ export default {
   padding-bottom: 9px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #c4cfd6;
+  border-bottom: 1px solid #eef1f3;
   min-height: 80px;
 }
 .card .avatar {

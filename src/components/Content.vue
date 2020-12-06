@@ -1,12 +1,6 @@
 <template>
   <div>
-    <router-link
-      v-for="item in tweets.list"
-      :key="item._id"
-      :to="'/status/' + item._id"
-      tag="div"
-      class="card"
-    >
+    <div v-for="item in tweets.list" :key="item._id" class="card">
       <div class="avatar">
         <van-image
           round
@@ -17,22 +11,33 @@
         />
       </div>
       <div class="container">
-        <div class="content">
-          <span class="info">张三 @zhangsan</span>
-          <p>
-            {{ item.content.text }}
-          </p>
-          <div class="image-box"></div>
-        </div>
+        <router-link tag="div" :to="'/status/' + item._id">
+          <div class="content">
+            <span class="info">张三 @zhangsan</span>
+            <p>
+              {{ item.content.text }}
+            </p>
+            <div class="image-box"></div>
+          </div>
+        </router-link>
         <div class="interaction">
-          <van-icon name="comment-o" size="20" />
-          <van-icon name="exchange" size="20" />
+          <router-link to="/compose/tweet">
+            <van-icon name="comment-o" size="20" />
+          </router-link>
+          <router-link to="/compose/tweet">
+            <van-icon name="exchange" size="20" />
+          </router-link>
           <van-icon name="like-o" size="20" />
-          <van-icon name="share-o" size="20" />
+          <van-icon name="share-o" size="20" @click="showShare = true" />
         </div>
       </div>
-    </router-link>
-    <!-- </div> -->
+    </div>
+    <van-share-sheet
+      v-model="showShare"
+      title="立即分享给好友"
+      :options="options"
+      @select="onSelect"
+    />
   </div>
 </template>
 
@@ -41,6 +46,13 @@ export default {
   data: function () {
     return {
       tweets: { list: [] },
+      showShare: false,
+      options: [
+        { name: "微信", icon: "wechat" },
+        { name: "微博", icon: "weibo" },
+        { name: "QQ", icon: "qq" },
+        { name: "复制链接", icon: "link" },
+      ],
     };
   },
   watch: {
@@ -57,6 +69,9 @@ export default {
     this.dynamicRender(this.$route.path);
   },
   methods: {
+    onSelect: function (option) {
+      this.showShare = false;
+    },
     requestTweets: async function (url) {
       try {
         const { data } = await this.axios.get(url);
@@ -90,7 +105,6 @@ export default {
   padding: 0;
 }
 .card {
-  /* margin-top: 48px; */
   padding: 0 14px;
   padding-top: 9px;
   padding-bottom: 9px;
@@ -103,7 +117,6 @@ export default {
   padding-right: 9px;
 }
 .card .container {
-  /* min-width: 80px; */
   flex-grow: 2;
   display: flex;
   flex-direction: column;

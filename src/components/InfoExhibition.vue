@@ -12,8 +12,18 @@
         <span> {{ username }} </span>
         <span> @{{ userid }} </span>
         <span> {{ detailInfo.description }}</span>
-        <span> {{ detailInfo.location }}{{ detailInfo.birthday }}</span>
-        <span> {{ followingCount }} 正在关注 {{ followersCount }} 关注者 </span>
+        <span>
+          <van-icon name="calendar-o" /> {{ detailInfo.location
+          }}{{ detailInfo.birthday | timeFilter }}</span
+        >
+        <span>
+          <router-link to="userid/following"
+            >{{ followingCount }}正在关注</router-link
+          >
+          <router-link to="userid/followers">
+            {{ followersCount }}关注者</router-link
+          >
+        </span>
       </div>
     </div>
     <div class="buttons">
@@ -36,6 +46,13 @@ export default {
     this.username = data.username;
     this.followingCount = data.following_count;
     this.followersCount = data.followers_count;
+  },
+  filters: {
+    timeFilter: function (str) {
+      if (str === "") return "出生于 1990年1月1日";
+      const t = new Date(str);
+      return `出生于 ${t.getFullYear()}年${t.getMonth()}月${t.getDate()}`;
+    },
   },
   data: function () {
     return {

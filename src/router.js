@@ -14,6 +14,7 @@ import Compose from './views/Compose.vue'
 import TweetBoard from './components/TweetBoard.vue'
 import MessageBoard from './components/MessageBoard.vue'
 import Status from './views/Status.vue'
+import UserList from './views/UserList.vue'
 Vue.use(Router)
 
 
@@ -45,7 +46,7 @@ const router = new Router({
             ]
         },
         {
-            path: '/:username',
+            path: '/:userid',
             component: User,
             children: [
                 {
@@ -70,6 +71,14 @@ const router = new Router({
                 },
             ]
 
+        },
+        {
+            path: '/:userid/following',
+            component: UserList
+        },
+        {
+            path: '/:userid/followers',
+            component: UserList
         },
         {
             path: '/compose/:item',

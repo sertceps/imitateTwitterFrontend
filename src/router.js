@@ -52,7 +52,7 @@ const router = new Router({
                 {
                     path: '/:userid',
                     component: TweetsRender
-                    // 这个组件拿到 username进行j查询
+                    // 这个组件拿到 username进行查询
                 },
                 {
                     path: '/:userid/with_replies',

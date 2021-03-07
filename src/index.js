@@ -14,7 +14,7 @@ Vue.prototype.axios = Axios
 import {
     NavBar, Tabbar, TabbarItem, Card, Form, Field, Button, Dialog,
     Image as VanImage, Lazyload, Icon, Popup, Cell, CellGroup, Search,
-    Notify, Divider, ShareSheet
+    Notify, Divider, ShareSheet,Toast
 } from 'vant'
 
 Vue.use(NavBar)
@@ -35,6 +35,7 @@ Vue.use(Search)
 Vue.use(Notify)
 Vue.use(Divider)
 Vue.use(ShareSheet)
+Vue.use(Toast)
 
 import 'vant/lib/nav-bar/style'
 import 'vant/lib/tabbar/style'
@@ -53,6 +54,7 @@ import 'vant/lib/search/style'
 import 'vant/lib/notify/style'
 import 'vant/lib/divider/style'
 import 'vant/lib/share-sheet/style'
+import 'vant/lib/toast/style'
 
 
 new Vue({
